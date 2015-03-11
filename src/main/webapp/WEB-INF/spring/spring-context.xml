@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- 启动扫描所有的controller -->
+    <context:component-scan base-package="com.haih." />
+
+    <!-- 主要作用于@Controller，激活该模式 下面是一种简写形式，完全可以手动配置替代这种简写形式； 它会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 
+        两个bean, 是spring MVC为@Controllers分发请求所必须的 -->
+    <mvc:annotation-driven />
+    <!-- task注解配置：开启这个配置，spring才能识别@Scheduled注解 -->
+    <task:annotation-driven />
+    <mvc:resources mapping="/views/**" location="/views/" />
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+	
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<!-- Only needed because we require fileupload in the org.springframework.samples.mvc.fileupload package -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
+</beans:beans>
